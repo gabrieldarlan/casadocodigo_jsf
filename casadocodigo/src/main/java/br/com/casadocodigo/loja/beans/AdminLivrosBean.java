@@ -29,20 +29,14 @@ public class AdminLivrosBean implements Serializable {
 
 	@Inject
 	private FacesContext context;
-	
+
 	@Inject
 	private AutorDao autorDao;
 
-	private List<Integer> autoresId = new ArrayList<Integer>();
-
-	
 	@Transactional
 	public String salvar() {
-		for (Integer autorId : autoresId) {
-			livro.getAutores().add(new Autor(autorId));
-		}
 		livroDao.salvar(livro);
-		
+
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		context.addMessage(null, new FacesMessage("Livro cadastrado com sucesso!"));
 		return "lista?faces-redirect=true";
@@ -54,14 +48,6 @@ public class AdminLivrosBean implements Serializable {
 
 	public void setLivro(Livro livro) {
 		this.livro = livro;
-	}
-
-	public List<Integer> getAutoresId() {
-		return autoresId;
-	}
-
-	public void setAutoresId(List<Integer> autoresId) {
-		this.autoresId = autoresId;
 	}
 
 	public List<Autor> getAutores() {
